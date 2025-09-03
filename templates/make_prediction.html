@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h2>Predictions for {{ player.name }} — Gameweek {{ request.args.get('matchday') or '' }}</h2>
+  <form method="post">
+    <input type="hidden" name="player_id" value="{{ player.id }}">
+    <input type="hidden" name="matchday" value="{{ request.args.get('matchday') }}">
+    <table class="matches">
+      <thead><tr><th>Kickoff (UTC)</th><th>Match</th><th>Your pick</th><th>Status</th></tr></thead>
+      <tbody>
+        {% for match in matches %}
+          <tr>
+            <td>{{ match.utc_date.strftime("%Y-%m-%d %H:%M") }}</td>
+            <td>{{ match.home_team }} v {{ match.away_team }}</td>
+            <td>
+              {% set cutoff = match.utc_date.replace(tzinfo=none) %}
+              {% set kickoff = match.utc_date %}
+              {% set cutoff_dt = match.utc_date - timedelta(minutes=5) %}
+              {% if now_utc >= (match.utc_date.replace(tzinfo=none) - timedelta(minutes=5)) %}
+                <em>Locked</em>
+              {% else %}
+                <label><input type="radio" name="pick_{{ match.id }}" value="HOME"
+                  {% if existing.get(match.id) and existing.get(match.id).pick=='HOME' %}checked{% endif %}> {{ match.home_team }}</label>
+                <label><input type="radio" name="pick_{{ match.id }}" value="DRAW"
+                  {% if existing.get(match.id) and existing.get(match.id).pick=='DRAW' %}checked{% endif %}> Draw</label>
+                <label><input type="radio" name="pick_{{ match.id }}" value="AWAY"
+                  {% if existing.get(match.id) and existing.get(match.id).pick=='AWAY' %}checked{% endif %}> {{ match.away_team }}</label>
+              {% endif %}
+            </td>
+            <td>{{ match.status }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <button type="submit" class="btn">Submit Predictions</button>
+  </form>
+{% endblock %}

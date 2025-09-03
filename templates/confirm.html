@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h2>Confirmation — {{ player.name }} (GW {{ matchday }})</h2>
+  <table class="matches">
+    <thead><tr><th>Kickoff (UTC)</th><th>Match</th><th>Your pick</th><th>Status</th></tr></thead>
+    <tbody>
+      {% for match in matches %}
+        <tr>
+          <td>{{ match.utc_date.strftime("%Y-%m-%d %H:%M") }}</td>
+          <td>{{ match.home_team }} v {{ match.away_team }}</td>
+          <td>{{ preds[match.id].pick if preds.get(match.id) else '-' }}</td>
+          <td>{{ match.status }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{{ url_for('make_prediction') }}?player_id={{ player.id }}&matchday={{ matchday }}" class="btn">Edit (if allowed)</a>
+{% endblock %}

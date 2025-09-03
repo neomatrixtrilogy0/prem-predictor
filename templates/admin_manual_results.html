@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h2>Admin — Manually enter GW1–3 results</h2>
+  <form method="post">
+    <table class="matches">
+      <thead><tr><th>GW</th><th>Kickoff</th><th>Match</th><th>Home score</th><th>Away score</th></tr></thead>
+      <tbody>
+        {% for match in matches %}
+          <tr>
+            <td>{{ match.matchday }}</td>
+            <td>{{ match.utc_date.strftime("%Y-%m-%d %H:%M") }}</td>
+            <td>{{ match.home_team }} v {{ match.away_team }}</td>
+            <td><input name="home_{{ match.id }}" type="number" value="{{ match.home_score if match.home_score is not none else 0 }}"></td>
+            <td><input name="away_{{ match.id }}" type="number" value="{{ match.away_score if match.away_score is not none else 0 }}"></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <button class="btn" type="submit">Save manual results</button>
+  </form>
+{% endblock %}

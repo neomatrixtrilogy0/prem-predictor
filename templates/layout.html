@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Premier League Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>Premier League Predictor</h1>
+      <nav>
+        <a href="{{ url_for('index') }}">Home</a> |
+        <a href="{{ url_for('totals') }}">Totals</a> |
+        <a href="{{ url_for('weekly_results', matchday=4) }}">Weekly Results</a> |
+        <a href="{{ url_for('admin_manual_results') }}">Admin (Manual GW1-3)</a>
+      </nav>
+    </header>
+    <main class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <ul class="flashlist">
+            {% for category, msg in messages %}
+              <li class="flash {{ category }}">{{ msg }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">
+      <small>Uses Football-Data API · Correct result = 1 point per match</small>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+body {
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    margin: 0;
+    background: #f6f8fb;
+    color: #12263a;
+  }
+  .topbar {
+    background: linear-gradient(90deg,#0b69ff,#6f7cff);
+    color: white;
+    padding: 16px 24px;
+  }
+  .topbar h1 { margin: 0; font-size: 1.4rem; }
+  .topbar nav { margin-top: 8px; font-size: 0.95rem; }
+  .container { padding: 24px; max-width: 1100px; margin: auto;}
+  .form-inline { display:flex; gap:12px; align-items:center; margin-bottom:16px; }
+  select { padding:8px 10px; border-radius:6px; border:1px solid #d7e0ef; }
+  .btn { background:#0b69ff; color:white; padding:8px 12px; border-radius:8px; border:none; cursor:pointer; }
+  .btn:hover { opacity:0.95; }
+  .matches, .results, .totals { width:100%; border-collapse: collapse; margin-top:12px; }
+  .matches th, .matches td, .results th, .results td { border:1px solid #e2e8f0; padding:8px; text-align:left; vertical-align:top; }
+  .flashlist { list-style:none; padding:0; margin:0 0 12px 0; }
+  .flash { padding:8px 12px; border-radius:8px; margin-bottom:6px; }
+  .flash.success { background:#dff6dd; color:#0b6624; }
+  .flash.warning { background:#fff4d2; color:#634d00; }
+  .footer { padding:16px; text-align:center; color:#6b7280; font-size:0.9rem; }
+  

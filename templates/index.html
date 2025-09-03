@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h2>Make predictions</h2>
+  <form action="{{ url_for('make_prediction') }}" method="get" class="form-inline">
+    <label>Player</label>
+    <select name="player_id">
+      {% for p in players %}
+        <option value="{{ p.id }}">{{ p.name }}</option>
+      {% endfor %}
+    </select>
+
+    <label>Gameweek</label>
+    <select name="matchday">
+      {% for gw in gw_options %}
+        <option value="{{ gw }}">{{ gw }}</option>
+      {% endfor %}
+    </select>
+
+    <button type="submit" class="btn">Make predictions</button>
+  </form>
+
+  <section class="info">
+    <h3>Notes</h3>
+    <ul>
+      <li>Gameweeks 1–3: use the Admin link to enter results manually.</li>
+      <li>From GW4 onward, predictions are based on live schedule from Football-Data API.</li>
+      <li>Players can change predictions until 5 minutes before kickoff.</li>
+    </ul>
+  </section>
+{% endblock %}

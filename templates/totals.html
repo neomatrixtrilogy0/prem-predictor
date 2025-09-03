@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h2>Totals across all matchweeks</h2>
+  <table class="totals">
+    <thead><tr><th>Player</th><th>Total Points</th></tr></thead>
+    <tbody>
+      {% for r in totals %}
+        <tr><td>{{ r.player }}</td><td>{{ r.total }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

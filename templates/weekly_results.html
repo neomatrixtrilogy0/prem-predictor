@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h2>Weekly results — Gameweek {{ matchday }}</h2>
+  <table class="results">
+    <thead>
+      <tr>
+        <th>Player</th>
+        {% for match in matches %}
+          <th>{{ match.home_team }}<br>v<br>{{ match.away_team }}</th>
+        {% endfor %}
+        <th>Total this GW</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in table %}
+        <tr>
+          <td>{{ row.player }}</td>
+          {% for pm in row.per_match %}
+            <td>
+              Pick: {{ pm.pick if pm.pick else '-' }}<br>
+              Points: {{ pm.points }}
+            </td>
+          {% endfor %}
+          <td>{{ row.sum }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
