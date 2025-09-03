@@ -12,13 +12,19 @@ FOOTBALL_DATA_API_KEY = os.getenv("FOOTBALL_DATA_API_KEY")  # you must set this
 DATABASE_URL = os.getenv("DATABASE_URL")  # e.g. postgres://user:pass@localhost:5432/dbname
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret")
 
+
+
 if not FOOTBALL_DATA_API_KEY:
     raise RuntimeError("Set FOOTBALL_DATA_API_KEY in environment")
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL or "postgresql://postgres:postgres@localhost/prem-pred"
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = SECRET_KEY
+
+# Use psycopg driver for Postgres + Python 3.13 compatibility
+SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL").replace("postgres://", "postgresql+psycopg://")
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 db.init_app(app)
 
 # Configure competition: Premier League (use code 'PL' in football-data)
